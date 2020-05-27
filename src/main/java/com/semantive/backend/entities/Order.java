@@ -1,6 +1,7 @@
 package com.semantive.backend.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,12 +14,14 @@ public class Order {
     private List<Item> items;
     private String name;
     private int age;
+    private Date created;
 
     public Order() {}
 
     public Order(String name, int age) {
         this.name=name;
         this.age=age;
+        created = new Date();
     }
 
     public Integer getId() {
@@ -53,7 +56,10 @@ public class Order {
         this.age = age;
     }
 
+    public Date getCreated() {return created;}
+
     public String toString() {
-        return this.name+", "+this.age+": "+this.items;
+        return "<"+this.name+", "+this.age+", " +
+                ""+this.created+": "+this.items+">";
     }
 }

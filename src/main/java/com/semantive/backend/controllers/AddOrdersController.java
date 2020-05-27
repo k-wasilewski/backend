@@ -24,6 +24,11 @@ public class AddOrdersController {
     @CrossOrigin(origins = "http://localhost:3000")
     public String addOrders(@RequestParam("name") String name, @RequestParam("age") int age,
                             @RequestParam("items") String items) {
+        if (name.contains(" ") || !name.matches("^[A-Z]([a-z]*)$")) {
+            throw new IllegalArgumentException();
+        }
+        if (age<18 || age>100) throw new IllegalArgumentException();
+        
         String[] itemsArr = items.split("(?=[0-9])");
         Pattern idRegex = Pattern.compile("^(\\d),");
         Pattern colorRegex = Pattern.compile(",(.*),");
