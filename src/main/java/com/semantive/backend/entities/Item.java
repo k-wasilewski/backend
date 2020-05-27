@@ -9,8 +9,8 @@ public class Item {
     @Id
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "order")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     private String color;
@@ -19,7 +19,8 @@ public class Item {
 
     public Item() {}
 
-    public Item(String color, String size) {
+    public Item(String color, String size, Order order) {
+        this.order=order;
         this.color=color;
         this.size=size;
     }
