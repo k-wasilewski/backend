@@ -28,7 +28,7 @@ public class AddOrdersController {
             throw new IllegalArgumentException();
         }
         if (age<18 || age>100) throw new IllegalArgumentException();
-        
+
         String[] itemsArr = items.split("(?=[0-9])");
         Pattern idRegex = Pattern.compile("^(\\d),");
         Pattern colorRegex = Pattern.compile(",(.*),");
@@ -54,6 +54,8 @@ public class AddOrdersController {
             while (sizeMatcher.find()) size = sizeMatcher.group(1);
 
             itemRepository.save(new Item(color, size, order));
+            //if-else with ItemCounter update
+            //and exception catch
         }
 
         return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
