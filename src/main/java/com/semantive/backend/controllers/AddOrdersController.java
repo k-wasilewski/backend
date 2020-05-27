@@ -30,25 +30,26 @@ public class AddOrdersController {
         Pattern colorRegex = Pattern.compile(",(.*),");
         Pattern sizeRegex = Pattern.compile(",((\\w)|(\\w\\w))$");
 
-        System.out.println("array"+Arrays.toString(itemsArr));
+        Order order = new Order(name, age);
+        orderRepository.save(order);
 
-        Order o = new Order("fefr", 23);
-        orderRepository.save(o);
-        itemRepository.save(new Item("frefe", "fefre", o));
+        String id;
+        String color="";
+        String size="";
 
         for (String item : itemsArr) {
             if (item.charAt(item.length()-1)==',') {
                 item = item.substring(0, item.length() - 1);
             }
-            System.out.println("item: "+item);
-
             Matcher idMatcher = idRegex.matcher(item);
             Matcher colorMatcher = colorRegex.matcher(item);
             Matcher sizeMatcher = sizeRegex.matcher(item);
 
-            while (idMatcher.find()) System.out.println("id="+idMatcher.group(1));
-            while (colorMatcher.find()) System.out.println("color="+colorMatcher.group(1));
-            while (sizeMatcher.find()) System.out.println("size="+sizeMatcher.group(1));
+            while (idMatcher.find()) id = idMatcher.group(1);
+            while (colorMatcher.find()) color = colorMatcher.group(1);
+            while (sizeMatcher.find()) size = sizeMatcher.group(1);
+
+            itemRepository.save(new Item(color, size, order));
         }
 
         return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
