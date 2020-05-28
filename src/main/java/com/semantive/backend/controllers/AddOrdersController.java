@@ -59,12 +59,11 @@ public class AddOrdersController {
 
             itemRepository.save(new Item(color, size, order));
             ItemCounter counter = itemCounterRepository.findByColorAndSize(color, size);
-            System.out.println("counter: "+counter);
             if (counter.getCount()<1) counter.setAvailable(0);
             if (counter.isAvailable()==1) {
                 counter.decrementCount();
             } else {
-                return "error: Towar chwilowo niedostępny";
+                return "error: Towar ["+color+","+size+"] chwilowo niedostępny";
             }
             itemCounterRepository.save(counter);
         }
