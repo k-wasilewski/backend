@@ -1,7 +1,9 @@
 package com.semantive.backend.controllers;
 
 import com.semantive.backend.entities.Item;
+import com.semantive.backend.entities.ItemCounter;
 import com.semantive.backend.entities.Order;
+import com.semantive.backend.repos.ItemCounterRepository;
 import com.semantive.backend.repos.ItemRepository;
 import com.semantive.backend.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class AddOrdersController {
     ItemRepository itemRepository;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    ItemCounterRepository itemCounterRepository;
 
     @PostMapping("/add")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -54,8 +58,15 @@ public class AddOrdersController {
             while (sizeMatcher.find()) size = sizeMatcher.group(1);
 
             itemRepository.save(new Item(color, size, order));
-            //if-else with ItemCounter update
-            //and exception catch
+            ItemCounter counter = itemCounterRepository.findByColorAndSize(color, size);
+            System.out.println("counter: "+counter);
+            if (counter.getCount()<1) counter.setAvailable(0);
+            if (counter.isAvailable()==1) {
+                counter.decrementCount();
+            } else {
+                return "error: Towar chwilowo niedostępny";
+            }
+            itemCounterRepository.save(counter);
         }
 
         return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";

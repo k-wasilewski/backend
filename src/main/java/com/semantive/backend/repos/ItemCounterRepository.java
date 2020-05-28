@@ -5,4 +5,5 @@ import com.semantive.backend.entities.ItemCounter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ItemCounterRepository extends JpaRepository<ItemCounter, Integer> {
+    ItemCounter findByColorAndSize(String color, String size);
 }

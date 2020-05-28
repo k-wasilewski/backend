@@ -14,16 +14,15 @@ public class ItemCounter {
 
     private String size;
 
-    private int count = 101;
+    private int count = 5;
+
+    private int available = 1;
 
     public ItemCounter() {}
 
     public ItemCounter(String color, String size) {
         this.color=color;
         this.size=size;
-        this.count--;
-
-        if (this.count<0) throw new NoSuchElementException();
     }
 
     public Integer getId() {
@@ -54,7 +53,19 @@ public class ItemCounter {
         return count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void decrementCount() {
+        this.count--;
+    }
+
+    public int isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
+    }
+
+    public String toString() {
+        return "counter["+color+","+size+"]";
     }
 }
