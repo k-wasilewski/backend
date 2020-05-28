@@ -16,6 +16,8 @@ public class ItemCounter {
 
     private int count = 5;
 
+    private int temporaryCount = count;
+
     private int available = 1;
 
     public ItemCounter() {}
@@ -55,6 +57,7 @@ public class ItemCounter {
 
     public void decrementCount() {
         this.count--;
+        this.temporaryCount--;
     }
 
     public int isAvailable() {
@@ -64,6 +67,16 @@ public class ItemCounter {
     public void setAvailable(int available) {
         this.available = available;
     }
+
+    public void setTemporaryCount(int temporaryCount) {
+        this.temporaryCount=temporaryCount;
+    }
+
+    public void decrementTemporaryCount() {
+        this.temporaryCount--;
+    }
+
+    public int getTemporaryCount() {return this.temporaryCount;}
 
     public String toString() {
         return "counter["+color+","+size+"]";

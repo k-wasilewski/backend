@@ -63,7 +63,7 @@ public class AddOrdersController {
             if (counter.isAvailable()==1) {
                 counter.decrementCount();
             } else {
-                return "error: Towar ["+color+","+size+"] chwilowo niedostępny";
+                return "error: Towar ["+color+", "+size+"] chwilowo niedostępny";
             }
             itemCounterRepository.save(counter);
         }
