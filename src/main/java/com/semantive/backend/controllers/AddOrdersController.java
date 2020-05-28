@@ -34,31 +34,16 @@ public class AddOrdersController {
         }
         if (age<18 || age>100) throw new IllegalArgumentException();
 
-        String[] itemsArr = items.split("(?=[0-9])");
-        Pattern idRegex = Pattern.compile("^(\\d),");
-        Pattern colorRegex = Pattern.compile(",(.*),");
-        Pattern sizeRegex = Pattern.compile(",((\\w)|(\\w\\w))$");
-
         Order order = new Order(name, age);
         orderRepository.save(order);
 
-        String id;
-        String color="";
-        String size="";
+        String[] itemsArr = items.split("(?=[0-9])");
 
         for (String item : itemsArr) {
-            if (item.charAt(item.length()-1)==',') {
-                item = item.substring(0, item.length() - 1);
-            }
-            Matcher idMatcher = idRegex.matcher(item);
-            Matcher colorMatcher = colorRegex.matcher(item);
-            Matcher sizeMatcher = sizeRegex.matcher(item);
+            String[] colorSize = interpretAndSaveItem(item, order);
+            String color = colorSize[0];
+            String size = colorSize[1];
 
-            while (idMatcher.find()) id = idMatcher.group(1);
-            while (colorMatcher.find()) color = colorMatcher.group(1);
-            while (sizeMatcher.find()) size = sizeMatcher.group(1);
-
-            itemRepository.save(new Item(color, size, order));
             ItemCounter counter = itemCounterRepository.findByColorAndSize(color, size);
             if (counter.getCount()<1) counter.setAvailable(0);
             if (counter.isAvailable()==1) {
@@ -76,5 +61,35 @@ public class AddOrdersController {
         }
 
         return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
+    }
+
+    private String[] interpretAndSaveItem(String item, Order order) {
+        String[] colorSize = new String[2];
+
+        Pattern idRegex = Pattern.compile("^(\\d),");
+        Pattern colorRegex = Pattern.compile(",(.*),");
+        Pattern sizeRegex = Pattern.compile(",((\\w)|(\\w\\w))$");
+
+        String id;
+        String color="";
+        String size="";
+
+        if (item.charAt(item.length()-1)==',') {
+            item = item.substring(0, item.length() - 1);
+        }
+        Matcher idMatcher = idRegex.matcher(item);
+        Matcher colorMatcher = colorRegex.matcher(item);
+        Matcher sizeMatcher = sizeRegex.matcher(item);
+
+        while (idMatcher.find()) id = idMatcher.group(1);
+        while (colorMatcher.find()) color = colorMatcher.group(1);
+        while (sizeMatcher.find()) size = sizeMatcher.group(1);
+
+        itemRepository.save(new Item(color, size, order));
+
+        colorSize[0] = color;
+        colorSize[1] = size;
+
+        return colorSize;
     }
 }
