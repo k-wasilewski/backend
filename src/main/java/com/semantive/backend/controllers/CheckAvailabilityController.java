@@ -6,6 +6,8 @@ import com.semantive.backend.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class CheckAvailabilityController {
     @Autowired
@@ -30,12 +32,12 @@ public class CheckAvailabilityController {
 
     @PostMapping("/restore")
     @CrossOrigin(origins = "http://localhost:3000")
-    public String restoreAvailability(@RequestParam("color") String color,
-                                    @RequestParam("size") String size) {
-        ItemCounter counter = itemCounterRepository.findByColorAndSize(color, size);
-        int temporaryCount = counter.getTemporaryCount();
-        counter.setTemporaryCount(counter.getCount());
-        itemCounterRepository.save(counter);
+    public String restoreAvailability() {
+        List<ItemCounter> counterList = itemCounterRepository.findAll();
+        for (ItemCounter ic : counterList) {
+            ic.setTemporaryCount(ic.getCount());
+            itemCounterRepository.save(ic);
+        }
 
         return "success";
     }

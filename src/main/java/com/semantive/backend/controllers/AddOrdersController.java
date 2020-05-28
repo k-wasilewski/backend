@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,6 +67,12 @@ public class AddOrdersController {
                 return "error: Towar ["+color+", "+size+"] chwilowo niedostępny";
             }
             itemCounterRepository.save(counter);
+        }
+
+        List<ItemCounter> counterList = itemCounterRepository.findAll();
+        for (ItemCounter ic : counterList) {
+            ic.setTemporaryCount(ic.getCount());
+            itemCounterRepository.save(ic);
         }
 
         return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
