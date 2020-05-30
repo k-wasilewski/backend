@@ -26,7 +26,7 @@ public class AddOrdersController {
     ItemCounterRepository itemCounterRepository;
 
     @PostMapping("/add")
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String addOrders(@RequestParam("name") String name, @RequestParam("age") int age,
                             @RequestParam("items") String items) {
         if (name.contains(" ") || !name.matches("^[A-Z]([a-z]*)$")) {

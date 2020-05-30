@@ -12,7 +12,7 @@ public class GetOrdersController {
     OrderRepository orderRepository;
 
     @GetMapping("/list")
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String getOrders() {
         System.out.println(orderRepository.findAll());
         return orderRepository.findAll().toString();
