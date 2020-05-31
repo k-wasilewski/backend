@@ -2,7 +2,6 @@ package com.semantive.backend.controllers;
 
 import com.semantive.backend.entities.Item;
 import com.semantive.backend.entities.Order;
-import com.semantive.backend.repos.ItemCounterRepository;
 import com.semantive.backend.repos.ItemRepository;
 import com.semantive.backend.repos.OrderRepository;
 import org.junit.jupiter.api.Test;
@@ -27,10 +26,23 @@ class CheckAvailabilityControllerTest {
     CheckAvailabilityController checkAvailabilityController;
 
     @Test
-    void checkAvailability() {
-        assertEquals("success", checkAvailabilityController
-                .checkAvailability("blue", "s"));
+    void checkAvailability_shouldReturnSuccess_whenItemsAreAvailable() {
+        //given
+        String color = "blue";
+        String size = "s";
 
+        //when, then
+        assertEquals("success", checkAvailabilityController
+                .checkAvailability(color, size));
+    }
+
+    @Test
+    void checkAvailability_shouldReturnFail_whenItemsAreUnavailable() {
+        //given
+        String color = "blue";
+        String size = "s";
+
+        //when
         Order testOrder = new Order("Kuba", 30);
         orderRepository.save(testOrder);
         for (int i = 0; i < 5; i++) {
@@ -38,12 +50,14 @@ class CheckAvailabilityControllerTest {
             checkAvailabilityController.checkAvailability("blue", "s");
         }
 
+        //then
         assertEquals("fail", checkAvailabilityController
                 .checkAvailability("blue", "s"));
     }
 
     @Test
-    void restoreAvailability() {
+    void restoreAvailability_shouldRestoreTemporaryCountToCount() {
+        //given
         Order testOrder = new Order("Kuba", 30);
         orderRepository.save(testOrder);
         for (int i = 0; i < 5; i++) {
@@ -53,8 +67,10 @@ class CheckAvailabilityControllerTest {
         assertEquals("fail", checkAvailabilityController
                 .checkAvailability("blue", "s"));
 
+        //when
         checkAvailabilityController.restoreAvailability();
 
+        //then
         assertEquals("success", checkAvailabilityController
                 .checkAvailability("blue", "s"));
     }

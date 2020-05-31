@@ -30,11 +30,28 @@ class ItemRepositoryTest {
     }
 
     @Test
-    void save_findAll() {
+    void save_shouldSaveItemToDatabase() {
+        //given
         Item testItem = new Item("blue", "s", testOrder);
+
+        //when
         itemRepository.save(testItem);
 
+        //then
         assertEquals(testItem, itemRepository.findAll().get(0));
         assertEquals(itemRepository.findAll().get(0).getOrder(), testOrder);
+    }
+
+    @Test
+    void findAll_shouldReturnAllItemsSavedToDatabase() {
+        //given
+        Item testItem = new Item("blue", "s", testOrder);
+
+        //when
+        itemRepository.save(testItem);
+
+        //then
+        assertEquals(testItem, itemRepository.findAll().get(0));
+        assertEquals(1, itemRepository.findAll().size());
     }
 }

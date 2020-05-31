@@ -25,30 +25,37 @@ class AddOrdersControllerTest {
     ItemRepository itemRepository;
 
     @Test
-    void addOrders_incorrect_name() {
+    void addOrders_shouldThrowException_whenIncorrectNameIsPassed() {
+        //given
         Order testOrder = new Order("fdDff!#$&%g323f", 30);
         String items = "0,blue,s,1,lightblue,m";
 
+        //when, then
         assertThrows(IllegalArgumentException.class, () ->
                 addOrdersController.addOrders(testOrder.getName(), testOrder.getAge(), items));
     }
 
     @Test
-    void addOrders_incorrect_age() {
+    void addOrders_shouldThrowException_whenIncorrectAgeIsPassed() {
+        //given
         Order testOrder = new Order("Kuba", 13);
         String items = "0,blue,s,1,lightblue,m";
 
+        //when, then
         assertThrows(IllegalArgumentException.class, () ->
                 addOrdersController.addOrders(testOrder.getName(), testOrder.getAge(), items));
     }
 
     @Test
-    void addOrders_available() {
+    void addOrders_shouldReturnSuccessMsgAndSaveItems_whenItemsAreAvailable() {
+        //given
         Order testOrder = new Order("Kuba", 30);
         String items = "0,blue,s,1,lightblue,m";
 
+        //when
         String resp = addOrdersController.addOrders(testOrder.getName(), testOrder.getAge(), items);
 
+        //then
         assertEquals("Zamówienie dla [Kuba, 30] zostało przyjęte", resp);
 
         assertEquals("Kuba", orderRepository.findAll().get(0).getName());
@@ -61,12 +68,15 @@ class AddOrdersControllerTest {
     }
 
     @Test
-    void addOrders_unavailable() {
+    void addOrders_shoudReturnErrorMsg_whenItemsAreUnavailable() {
+        //given
         Order testOrder = new Order("Kuba", 30);
         String items = "0,blue,s,1,blue,s,2,blue,s,3,blue,s,4,blue,s,5,blue,s";
 
+        //when
         String resp = addOrdersController.addOrders(testOrder.getName(), testOrder.getAge(), items);
 
+        //then
         assertEquals("error: Towar [blue, s] chwilowo niedostępny", resp);
     }
 }

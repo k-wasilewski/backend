@@ -25,16 +25,29 @@ public class GetOrdersControllerTest {
     GetOrdersController getOrdersController;
 
     @Test
-    public void getOrders() {
+    public void getOrders_shouldReturnEmptyListToString_whenThereAreNoOrders() {
+        //given
         List<Order> emptyOrderList = new ArrayList<>();
-        assertEquals(emptyOrderList.toString(), getOrdersController.getOrders());
 
+        //when
+        String result = getOrdersController.getOrders();
+
+        //then
+        assertEquals(emptyOrderList.toString(), result);
+    }
+
+    @Test
+    public void getOrders_shouldReturnOrderListToString_whenThereAreOrders() {
+        //given
         Order testOrder = new Order("Kuba", 30);
         orderRepository.save(testOrder);
-
         List<Order> testOrdersList = new ArrayList<>();
         testOrdersList.add(testOrder);
 
-        assertEquals(testOrdersList.toString(), getOrdersController.getOrders());
+        //when
+        String result = getOrdersController.getOrders();
+
+        //then
+        assertEquals(testOrdersList.toString(), result);
     }
 }

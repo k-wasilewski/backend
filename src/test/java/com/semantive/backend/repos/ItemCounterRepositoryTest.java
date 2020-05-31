@@ -1,7 +1,6 @@
 package com.semantive.backend.repos;
 
 import com.semantive.backend.entities.ItemCounter;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,24 @@ class ItemCounterRepositoryTest {
     ItemCounterRepository itemCounterRepository;
 
     @Test
-    void save() {
+    void save_shouldSaveItemCounterToDatabase() {
+        //given
         ItemCounter testItemCounter = new ItemCounter("red", "g");
+
+        //when
         itemCounterRepository.save(testItemCounter);
 
+        //then
         assertEquals(testItemCounter, itemCounterRepository
                 .findByColorAndSize("red", "g"));
     }
 
     @Test
-    void findByColorAndSize() {
+    void findByColorAndSize_shouldReturnItemCounterSavedInAppInitializator() {
+        //given
         ItemCounter itemCounter = new ItemCounter("blue", "s");
 
+        //when, then
         assertEquals(itemCounter.getCount(), itemCounterRepository
                 .findByColorAndSize("blue", "s").getCount());
 
@@ -46,7 +51,14 @@ class ItemCounterRepositoryTest {
     }
 
     @Test
-    void findAll() {
-        assertEquals(12, itemCounterRepository.findAll().size());
+    void findAll_shouldReturnTwelveItemCountersSavedInAppInitializator() {
+        //given
+        int NUMBER_OF_ITEMCOUNTERS = 12;
+
+        //when
+        int result = itemCounterRepository.findAll().size();
+
+        //then
+        assertEquals(NUMBER_OF_ITEMCOUNTERS, result);
     }
 }

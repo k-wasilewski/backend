@@ -19,10 +19,27 @@ class OrderRepositoryTest {
     OrderRepository orderRepository;
 
     @Test
-    void save_findAll() {
+    void save_shouldSaveOrderToDatabase() {
+        //given
         Order testOrder = new Order("Kuba", 30);
+
+        //when
         orderRepository.save(testOrder);
 
+        //then
         assertEquals(testOrder, orderRepository.findAll().get(0));
+    }
+
+    @Test
+    void findAll_shouldReturnAllItemsSavedToDatabase() {
+        //given
+        Order testOrder = new Order("Kuba", 30);
+
+        //when
+        orderRepository.save(testOrder);
+
+        //then
+        assertEquals(testOrder, orderRepository.findAll().get(0));
+        assertEquals(1, orderRepository.findAll().size());
     }
 }
