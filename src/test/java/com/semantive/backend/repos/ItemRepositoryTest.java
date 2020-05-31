@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 class ItemRepositoryTest {
     @Autowired
     ItemRepository itemRepository;
@@ -27,19 +30,11 @@ class ItemRepositoryTest {
     }
 
     @Test
-    void save() {
-        Item testItem = new Item("blue", "s", testOrder);
-        itemRepository.save(testItem);
-
-        assertEquals(testItem, itemRepository.getOne(0));
-        assertEquals(itemRepository.getOne(0).getOrder(), testOrder);
-    }
-
-    @Test
-    void findAll() {
+    void save_findAll() {
         Item testItem = new Item("blue", "s", testOrder);
         itemRepository.save(testItem);
 
         assertEquals(testItem, itemRepository.findAll().get(0));
+        assertEquals(itemRepository.findAll().get(0).getOrder(), testOrder);
     }
 }
