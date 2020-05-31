@@ -1,7 +1,6 @@
 package com.semantive.backend.entities;
 
 import javax.persistence.*;
-import java.util.NoSuchElementException;
 
 @Entity
 @Table(name="item_counters")
