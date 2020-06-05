@@ -1,7 +1,7 @@
-package com.semantive.backend.repos;
+package com.shop.backend.repos;
 
-import com.semantive.backend.entities.Item;
-import com.semantive.backend.entities.Order;
+import com.shop.backend.entities.Item;
+import com.shop.backend.entities.Order;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

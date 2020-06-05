@@ -1,11 +1,11 @@
-package com.semantive.backend.controllers;
+package com.shop.backend.controllers;
 
-import com.semantive.backend.entities.Item;
-import com.semantive.backend.entities.ItemCounter;
-import com.semantive.backend.entities.Order;
-import com.semantive.backend.repos.ItemCounterRepository;
-import com.semantive.backend.repos.ItemRepository;
-import com.semantive.backend.repos.OrderRepository;
+import com.shop.backend.entities.Item;
+import com.shop.backend.entities.ItemCounter;
+import com.shop.backend.entities.Order;
+import com.shop.backend.repos.ItemCounterRepository;
+import com.shop.backend.repos.ItemRepository;
+import com.shop.backend.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

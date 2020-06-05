@@ -1,6 +1,6 @@
-package com.semantive.backend.controllers;
+package com.shop.backend.controllers;
 
-import com.semantive.backend.repos.OrderRepository;
+import com.shop.backend.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

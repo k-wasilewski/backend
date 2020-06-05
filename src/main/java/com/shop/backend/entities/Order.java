@@ -1,4 +1,4 @@
-package com.semantive.backend.entities;
+package com.shop.backend.entities;
 
 import javax.persistence.*;
 import java.util.Date;

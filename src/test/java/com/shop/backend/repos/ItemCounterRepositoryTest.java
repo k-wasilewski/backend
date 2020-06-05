@@ -1,6 +1,6 @@
-package com.semantive.backend.repos;
+package com.shop.backend.repos;
 
-import com.semantive.backend.entities.ItemCounter;
+import com.shop.backend.entities.ItemCounter;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

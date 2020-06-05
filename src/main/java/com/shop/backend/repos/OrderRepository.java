@@ -1,6 +1,6 @@
-package com.semantive.backend.repos;
+package com.shop.backend.repos;
 
-import com.semantive.backend.entities.Order;
+import com.shop.backend.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {

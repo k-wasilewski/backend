@@ -1,8 +1,8 @@
-package com.semantive.backend.controllers;
+package com.shop.backend.controllers;
 
-import com.semantive.backend.entities.Order;
-import com.semantive.backend.repos.ItemRepository;
-import com.semantive.backend.repos.OrderRepository;
+import com.shop.backend.entities.Order;
+import com.shop.backend.repos.ItemRepository;
+import com.shop.backend.repos.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

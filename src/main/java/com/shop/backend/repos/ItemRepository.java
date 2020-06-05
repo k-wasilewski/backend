@@ -1,6 +1,6 @@
-package com.semantive.backend.repos;
+package com.shop.backend.repos;
 
-import com.semantive.backend.entities.Item;
+import com.shop.backend.entities.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {

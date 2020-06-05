@@ -1,7 +1,7 @@
-package com.semantive.backend.controllers;
+package com.shop.backend.controllers;
 
-import com.semantive.backend.entities.ItemCounter;
-import com.semantive.backend.repos.ItemCounterRepository;
+import com.shop.backend.entities.ItemCounter;
+import com.shop.backend.repos.ItemCounterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
