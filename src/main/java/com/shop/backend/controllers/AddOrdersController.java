@@ -28,7 +28,7 @@ public class AddOrdersController {
     @PostMapping("/add")
     @CrossOrigin(origins = "http://localhost:3000")
     public String addOrders(@RequestParam("name") String name, @RequestParam("age") int age,
-                            @RequestParam("items") String items) {
+                            @RequestParam("items") List<Item> items) {
         if (name.contains(" ") || !name.matches("^[A-Z]([a-z]*)$")) {
             throw new IllegalArgumentException();
         }
@@ -37,12 +37,9 @@ public class AddOrdersController {
         Order order = new Order(name, age);
         orderRepository.save(order);
 
-        String[] itemsArr = items.split("(?=[0-9])");
-
-        for (String item : itemsArr) {
-            String[] colorSize = interpretAndSaveItem(item, order);
-            String color = colorSize[0];
-            String size = colorSize[1];
+        for (Item item : items) {
+            String color = item.getColor();
+            String size = item.getSize();
 
             ItemCounter counter = itemCounterRepository.findByColorAndSize(color, size);
             if (counter.getCount()<1) counter.setAvailable(0);
@@ -61,35 +58,5 @@ public class AddOrdersController {
         }
 
         return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
-    }
-
-    private String[] interpretAndSaveItem(String item, Order order) {
-        String[] colorSize = new String[2];
-
-        Pattern idRegex = Pattern.compile("^(\\d),");
-        Pattern colorRegex = Pattern.compile(",(.*),");
-        Pattern sizeRegex = Pattern.compile(",((\\w)|(\\w\\w))$");
-
-        String id;
-        String color="";
-        String size="";
-
-        if (item.charAt(item.length()-1)==',') {
-            item = item.substring(0, item.length() - 1);
-        }
-        Matcher idMatcher = idRegex.matcher(item);
-        Matcher colorMatcher = colorRegex.matcher(item);
-        Matcher sizeMatcher = sizeRegex.matcher(item);
-
-        while (idMatcher.find()) id = idMatcher.group(1);
-        while (colorMatcher.find()) color = colorMatcher.group(1);
-        while (sizeMatcher.find()) size = sizeMatcher.group(1);
-
-        itemRepository.save(new Item(color, size, order));
-
-        colorSize[0] = color;
-        colorSize[1] = size;
-
-        return colorSize;
     }
 }
