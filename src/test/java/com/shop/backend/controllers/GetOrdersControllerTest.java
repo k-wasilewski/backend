@@ -30,10 +30,10 @@ public class GetOrdersControllerTest {
         List<Order> emptyOrderList = new ArrayList<>();
 
         //when
-        String result = getOrdersController.getOrders();
+        List<Order> result = getOrdersController.getOrders();
 
         //then
-        assertEquals(emptyOrderList.toString(), result);
+        assertEquals(emptyOrderList, result);
     }
 
     @Test
@@ -45,9 +45,9 @@ public class GetOrdersControllerTest {
         testOrdersList.add(testOrder);
 
         //when
-        String result = getOrdersController.getOrders();
+        List<Order> result = getOrdersController.getOrders();
 
         //then
-        assertEquals(testOrdersList.toString(), result);
+        assertEquals(testOrdersList, result);
     }
 }
