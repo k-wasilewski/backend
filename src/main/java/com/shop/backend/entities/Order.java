@@ -16,12 +16,9 @@ public class Order {
     @Id
     private Integer id;
     @OneToMany(mappedBy = "order")
-    @JsonIgnore
     @JsonManagedReference
     private List<Item> items;
-    @JsonProperty("name")
     private String name;
-    @JsonProperty("age")
     private int age;
     private Date created;
 
