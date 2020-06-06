@@ -1,7 +1,7 @@
 package com.shop.backend.controllers;
 
 import com.shop.backend.entities.Item;
-import com.shop.backend.entities.Order;
+import com.shop.backend.entities.ItemCounter;
 import com.shop.backend.repos.ItemCounterRepository;
 import com.shop.backend.repos.ItemRepository;
 import com.shop.backend.repos.OrderRepository;
@@ -24,22 +24,10 @@ public class AddItemsController {
 
     @PostMapping("/addItems")
     @CrossOrigin(origins = "http://localhost:3000")
-    //public int addOrders(@RequestBody Order order) {
     public String addItems(@RequestBody List<Item> items) {
-        /*String name = order.getName();
-        int age = order.getAge();
-
-        if (name.contains(" ") || !name.matches("^[A-Z]([a-z]*)$")) {
-            throw new IllegalArgumentException();
-        }
-        if (age<18 || age>100) throw new IllegalArgumentException();
-
-        //Order order = new Order(name, age);
-        orderRepository.save(order);*/
-
-        /*List<Item> items = order.getItems();
-        for (Item item : items) {
-            System.out.println(item);
+        int orderId=0;
+        for(Item item : items) {
+            orderId = item.getOrder().getId();
             String color = item.getColor();
             String size = item.getSize();
 
@@ -53,22 +41,14 @@ public class AddItemsController {
             itemCounterRepository.save(counter);
             itemRepository.save(item);
         }
+        String name = orderRepository.findById(orderId).get().getName();
+        int age = orderRepository.findById(orderId).get().getAge();
 
         List<ItemCounter> counterList = itemCounterRepository.findAll();
         for (ItemCounter ic : counterList) {
             ic.setTemporaryCount(ic.getCount());
             itemCounterRepository.save(ic);
         }
-        return "is all ok!";*/
-        //return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
-        System.out.println(items);
-        int orderId=0;
-        for(Item item : items) {
-            orderId = item.getOrder().getId();
-            itemRepository.save(item);
-        }
-        String name = orderRepository.findById(orderId).get().getName();
-        int age = orderRepository.findById(orderId).get().getAge();
 
         return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
     }

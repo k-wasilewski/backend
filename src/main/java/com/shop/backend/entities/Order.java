@@ -65,6 +65,10 @@ public class Order {
         this.age = age;
     }
 
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     public Date getCreated() {return created;}
 
     public String toString() {
