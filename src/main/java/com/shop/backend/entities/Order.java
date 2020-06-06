@@ -1,5 +1,10 @@
 package com.shop.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -11,8 +16,12 @@ public class Order {
     @Id
     private Integer id;
     @OneToMany(mappedBy = "order")
+    @JsonIgnore
+    @JsonManagedReference
     private List<Item> items;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("age")
     private int age;
     private Date created;
 

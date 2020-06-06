@@ -1,18 +1,20 @@
 package com.shop.backend.controllers;
 
 import com.shop.backend.entities.Item;
-import com.shop.backend.entities.ItemCounter;
 import com.shop.backend.entities.Order;
 import com.shop.backend.repos.ItemCounterRepository;
 import com.shop.backend.repos.ItemRepository;
 import com.shop.backend.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-public class AddOrdersController {
+public class AddItemsController {
     @Autowired
     ItemRepository itemRepository;
     @Autowired
@@ -20,10 +22,10 @@ public class AddOrdersController {
     @Autowired
     ItemCounterRepository itemCounterRepository;
 
-    @PostMapping("/addOrder")
+    @PostMapping("/addItems")
     @CrossOrigin(origins = "http://localhost:3000")
-    public int addOrders(@RequestBody Order order) {
-    //public String addOrders(@RequestBody List<Item> items) {
+    //public int addOrders(@RequestBody Order order) {
+    public String addItems(@RequestBody List<Item> items) {
         /*String name = order.getName();
         int age = order.getAge();
 
@@ -59,7 +61,15 @@ public class AddOrdersController {
         }
         return "is all ok!";*/
         //return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
-        orderRepository.save(order);
-        return order.getId();
+        System.out.println(items);
+        int orderId=0;
+        for(Item item : items) {
+            orderId = item.getOrder().getId();
+            itemRepository.save(item);
+        }
+        String name = orderRepository.findById(orderId).get().getName();
+        int age = orderRepository.findById(orderId).get().getAge();
+
+        return "Zamówienie dla ["+name+", "+age+"] zostało przyjęte";
     }
 }

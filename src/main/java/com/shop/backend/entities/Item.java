@@ -1,6 +1,8 @@
 package com.shop.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 
@@ -11,7 +13,7 @@ public class Item {
     @Id
     private Integer id;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
@@ -61,6 +63,6 @@ public class Item {
     }
 
     public String toString() {
-        return "["+this.color+", "+this.size+"]";
+        return "["+this.color+", "+this.size+", "+this.order+"]";
     }
 }
