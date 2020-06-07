@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,6 +30,9 @@ class AddOrderControllerTest {
     void addOrder_shouldThrowException_whenIncorrectNameIsPassed() {
         //given
         Order testOrder = new Order("fdDff!#$&%g323f", 30);
+        List<Item> testItems = new ArrayList<>();
+        testItems.add(new Item("blue", "s", testOrder));
+        testOrder.setItems(testItems);
 
         //when, then
         assertThrows(IllegalArgumentException.class, () ->
@@ -39,6 +43,9 @@ class AddOrderControllerTest {
     void addOrder_shouldThrowException_whenIncorrectAgeIsPassed() {
         //given
         Order testOrder = new Order("Kuba", 13);
+        List<Item> testItems = new ArrayList<>();
+        testItems.add(new Item("blue", "s", testOrder));
+        testOrder.setItems(testItems);
 
         //when, then
         assertThrows(IllegalArgumentException.class, () ->
@@ -51,6 +58,9 @@ class AddOrderControllerTest {
         String name = "Kuba";
         int age = 30;
         Order testOrder = new Order(name, age);
+        List<Item> testItems = new ArrayList<>();
+        testItems.add(new Item("blue", "s", testOrder));
+        testOrder.setItems(testItems);
 
         //when
         String resp = addOrderController.addOrder(testOrder);
@@ -77,16 +87,18 @@ class AddOrderControllerTest {
             Item testItem = new Item();
             testItem.setColor("blue");
             testItem.setSize("s");
-            testItem.setOrder(testOrder);
             items.add(testItem);
         }
+        testOrder.setItems(items);
 
         //when
         String resp = addOrderController.addOrder(testOrder);
 
         //then
-        assertEquals(null, orderRepository.findByNameAndAge(
-                testOrder.getName(), testOrder.getAge()));
+        assertEquals(name, orderRepository.findByNameAndAge(
+                testOrder.getName(), testOrder.getAge()).getName());
+        assertEquals(age, orderRepository.findByNameAndAge(
+                testOrder.getName(), testOrder.getAge()).getAge());
 
         assertEquals("error: Towar [blue, s] chwilowo niedostępny", resp);
     }
