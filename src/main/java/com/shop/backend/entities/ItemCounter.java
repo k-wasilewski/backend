@@ -76,8 +76,4 @@ public class ItemCounter {
     }
 
     public int getTemporaryCount() {return this.temporaryCount;}
-
-    public String toString() {
-        return "counter["+color+","+size+"]";
-    }
 }

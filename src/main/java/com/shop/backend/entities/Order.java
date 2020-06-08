@@ -67,9 +67,4 @@ public class Order {
     }
 
     public Date getCreated() {return created;}
-
-    public String toString() {
-        return "<"+this.name+", "+this.age+", " +
-                ""+this.created+": "+this.items+">";
-    }
 }

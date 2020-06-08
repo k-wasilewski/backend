@@ -61,8 +61,4 @@ public class Item {
     public void setSize(String size) {
         this.size = size;
     }
-
-    public String toString() {
-        return "["+this.color+", "+this.size+", "+this.order+"]";
-    }
 }
