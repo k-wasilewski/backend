@@ -1,6 +1,5 @@
 package com.shop.backend.controllers;
 
-import com.shop.backend.auth.GetOrdersController;
 import com.shop.backend.entities.Order;
 import com.shop.backend.repos.OrderRepository;
 import org.junit.Test;
@@ -29,9 +28,10 @@ public class GetOrdersControllerTest {
     public void getOrders_shouldReturnEmptyListToString_whenThereAreNoOrders() {
         //given
         List<Order> emptyOrderList = new ArrayList<>();
+        String username = "username";
 
         //when
-        List<Order> result = getOrdersController.getOrders();
+        List<Order> result = getOrdersController.getOrders(username);
 
         //then
         assertEquals(emptyOrderList, result);
@@ -40,13 +40,14 @@ public class GetOrdersControllerTest {
     @Test
     public void getOrders_shouldReturnOrderListToString_whenThereAreOrders() {
         //given
-        Order testOrder = new Order("Kuba", 30);
+        String username = "kuba";
+        Order testOrder = new Order("Kuba", 30, username);
         orderRepository.save(testOrder);
         List<Order> testOrdersList = new ArrayList<>();
         testOrdersList.add(testOrder);
 
         //when
-        List<Order> result = getOrdersController.getOrders();
+        List<Order> result = getOrdersController.getOrders(username);
 
         //then
         assertEquals(testOrdersList, result);

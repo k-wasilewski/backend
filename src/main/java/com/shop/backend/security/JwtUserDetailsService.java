@@ -20,15 +20,22 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        if (!username.equals("test@test.pl"))
+        if (!username.equals("test@test.pl") && !username.equals("kuba@gmail.com"))
             throw new UsernameNotFoundException(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("user"));
 
-        String encodedPassword = passwordEncoder.encode("test");
+        String encodedPasswordTest = passwordEncoder.encode("test");
+        String encodedPasswordKuba = passwordEncoder.encode("kuba");
 
-        return new org.springframework.security.core.userdetails.User(
-                "test@test.pl", encodedPassword, grantedAuthorities);
+        if (username.equals("test@test.pl"))
+            return new org.springframework.security.core.userdetails.User(
+                    username, encodedPasswordTest, grantedAuthorities);
+        else if (username.equals("kuba@gmail.com"))
+            return new org.springframework.security.core.userdetails.User(
+                    username, encodedPasswordKuba, grantedAuthorities);
+
+        return null;
     }
 }
