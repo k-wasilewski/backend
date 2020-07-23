@@ -1,8 +1,9 @@
-package com.shop.backend.auth;
+package com.shop.backend.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -45,8 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/auth").permitAll()
-                .anyRequest().authenticated().and()
+                .authorizeRequests().antMatchers(HttpMethod.OPTIONS,
+                "/auth/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/auth/**").authenticated()
+                .anyRequest().permitAll()
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()

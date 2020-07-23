@@ -20,6 +20,7 @@ public class Order {
     private List<Item> items;
     private String name;
     private int age;
+    private String username;
     private Date created;
 
     public Order() {}
@@ -27,6 +28,13 @@ public class Order {
     public Order(String name, int age) {
         this.name=name;
         this.age=age;
+        created = new Date();
+    }
+
+    public Order(String name, int age, String username) {
+        this.name=name;
+        this.age=age;
+        this.username=username;
         created = new Date();
     }
 
@@ -67,4 +75,12 @@ public class Order {
     }
 
     public Date getCreated() {return created;}
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

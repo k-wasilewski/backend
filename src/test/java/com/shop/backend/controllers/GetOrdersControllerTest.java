@@ -1,5 +1,6 @@
 package com.shop.backend.controllers;
 
+import com.shop.backend.auth.GetOrdersController;
 import com.shop.backend.entities.Order;
 import com.shop.backend.repos.OrderRepository;
 import org.junit.Test;

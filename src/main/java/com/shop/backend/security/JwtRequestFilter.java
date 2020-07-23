@@ -1,4 +1,4 @@
-package com.shop.backend.auth;
+package com.shop.backend.security;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -26,12 +26,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
+        System.out.println(requestTokenHeader);
         String username = null;
         String jwtToken = null;
 
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
-            System.out.println(requestTokenHeader);
 
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);

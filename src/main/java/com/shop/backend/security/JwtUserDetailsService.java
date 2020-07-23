@@ -1,4 +1,4 @@
-package com.shop.backend.auth;
+package com.shop.backend.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

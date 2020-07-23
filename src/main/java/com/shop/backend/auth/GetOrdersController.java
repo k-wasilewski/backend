@@ -1,4 +1,4 @@
-package com.shop.backend.controllers;
+package com.shop.backend.auth;
 
 import com.shop.backend.entities.Order;
 import com.shop.backend.repos.OrderRepository;
@@ -14,7 +14,7 @@ public class GetOrdersController {
     @Autowired
     OrderRepository orderRepository;
 
-    @GetMapping("/list")
+    @GetMapping("/auth/list")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<Order> getOrders() {
         return orderRepository.findAll();

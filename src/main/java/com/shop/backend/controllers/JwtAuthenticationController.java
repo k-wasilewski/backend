@@ -1,9 +1,9 @@
 package com.shop.backend.controllers;
 
-import com.shop.backend.auth.JwtRequest;
-import com.shop.backend.auth.JwtResponse;
-import com.shop.backend.auth.JwtTokenUtil;
-import com.shop.backend.auth.JwtUserDetailsService;
+import com.shop.backend.security.JwtRequest;
+import com.shop.backend.security.JwtResponse;
+import com.shop.backend.security.JwtTokenUtil;
+import com.shop.backend.security.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +27,7 @@ public class JwtAuthenticationController {
     private JwtUserDetailsService userDetailsService;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody JwtRequest authenticationRequest) throws Exception {
 

@@ -1,4 +1,4 @@
-package com.shop.backend.auth;
+package com.shop.backend.security;
 
 import java.io.IOException;
 import java.io.Serializable;
