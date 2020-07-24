@@ -53,7 +53,7 @@ class AddOrderControllerTest {
     }
 
     @Test
-    void addOrder_shouldSaveOrderAndReturnSuccessMsg_whenAgeAndNameAreCorrectAndItemsAreAvailable() {
+    void addOrder_shouldSaveOrderAndReturnSuccessMsg_whenAgeAndNameAreCorrectAndItemsAreAvailableAndUsernameIsNull() {
         //given
         String name = "Kuba";
         int age = 30;
@@ -74,6 +74,32 @@ class AddOrderControllerTest {
 
         assertEquals("Kuba", orderRepository.findAll().get(0).getName());
         assertEquals(30, orderRepository.findAll().get(0).getAge());
+        assertEquals(null, orderRepository.findAll().get(0).getUsername());
+    }
+
+    @Test
+    void addOrder_shouldSaveOrderAndReturnSuccessMsg_whenAgeAndNameAreCorrectAndItemsAreAvailableAndUsernameIsNotNull() {
+        //given
+        String name = "Kuba";
+        int age = 30;
+        String username = "kuba";
+        Order testOrder = new Order(name, age, username);
+        List<Item> testItems = new ArrayList<>();
+        testItems.add(new Item("blue", "s", testOrder));
+        testOrder.setItems(testItems);
+
+        //when
+        String resp = addOrderController.addOrder(testOrder);
+
+        //then
+        assertEquals(testOrder, orderRepository.findAllByUsername(username).get(0));
+
+        assertEquals("Zamówienie dla ["+name+", "+age+"] zostało przyjęte",
+                resp);
+
+        assertEquals(name, orderRepository.findAll().get(0).getName());
+        assertEquals(age, orderRepository.findAll().get(0).getAge());
+        assertEquals(username, orderRepository.findAll().get(0).getUsername());
     }
 
     @Test

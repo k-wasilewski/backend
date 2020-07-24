@@ -31,15 +31,15 @@ class OrderRepositoryTest {
     }
 
     @Test
-    void findAll_shouldReturnAllItemsSavedToDatabase() {
+    void findAllByUsername_shouldReturnAllOrdersAccordinglySavedToDatabase() {
         //given
-        Order testOrder = new Order("Kuba", 30);
+        Order testOrder = new Order("Kuba", 30, "kuba");
 
         //when
         orderRepository.save(testOrder);
 
         //then
-        assertEquals(testOrder, orderRepository.findAll().get(0));
-        assertEquals(1, orderRepository.findAll().size());
+        assertEquals(testOrder, orderRepository.findAllByUsername("kuba").get(0));
+        assertEquals(1, orderRepository.findAllByUsername("kuba").size());
     }
 }
