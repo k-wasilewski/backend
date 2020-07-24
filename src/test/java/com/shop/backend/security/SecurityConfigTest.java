@@ -25,10 +25,9 @@ public class SecurityConfigTest {
     @Test
     public void authPathAccess_granted() throws Exception {
         //given
-        String username = "kuba";
-        String name = "test@test.pl";
+        String username = "test@test.pl";
         String password = "test";
-        JwtRequest request = new JwtRequest(name, password);
+        JwtRequest request = new JwtRequest(username, password);
         String json = new ObjectMapper().writeValueAsString(request);
         String token = null;
 
