@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-public class AppInitializator {
+public class AppInitializer {
     @Autowired
     ItemCounterRepository itemCounterRepository;
 
