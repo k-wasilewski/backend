@@ -35,7 +35,7 @@ public class SecurityConfigTest {
         MvcResult result = mockMvc.perform(post("/login")
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("Origin", "http://localhost:3000"))
+                .header("Origin", "https://localhost:3000"))
                 .andExpect(status().isOk())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
@@ -44,7 +44,7 @@ public class SecurityConfigTest {
 
         //then
         mockMvc.perform(get("/auth/list?username="+username)
-                .header("Origin", "http://localhost:3000")
+                .header("Origin", "https://localhost:3000")
                 .header("Authorization", "Bearer "+token))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -54,7 +54,7 @@ public class SecurityConfigTest {
     public void authPathAccess_denied() throws Exception {
         //given, when, then
         mockMvc.perform(get("/auth/list")
-                .header("Origin", "http://localhost:3000"))
+                .header("Origin", "https://localhost:3000"))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
     }

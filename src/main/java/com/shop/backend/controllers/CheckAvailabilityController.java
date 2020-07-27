@@ -13,7 +13,7 @@ public class CheckAvailabilityController {
     ItemCounterRepository itemCounterRepository;
 
     @PostMapping("/check")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://localhost:3000")
     public String checkAvailability(@RequestParam("color") String color,
                                     @RequestParam("size") String size) {
         ItemCounter counter = itemCounterRepository.findByColorAndSize(color, size);
@@ -30,7 +30,7 @@ public class CheckAvailabilityController {
     }
 
     @PostMapping("/restore")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://localhost:3000")
     public String restoreAvailability() {
         List<ItemCounter> counterList = itemCounterRepository.findAll();
         for (ItemCounter ic : counterList) {
