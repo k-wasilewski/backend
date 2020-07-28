@@ -2,3 +2,4 @@
 /.git
 /.idea
 *.iml
+src/main/resources/ebininfosoft-ssl-key.p12
