@@ -30,7 +30,7 @@ public class CheckAvailabilityController {
     }
 
     @PostMapping("/restore")
-    @CrossOrigin(origins = "https://localhost:3000")
+    @CrossOrigin(origins = "*")
     public String restoreAvailability() {
         List<ItemCounter> counterList = itemCounterRepository.findAll();
         for (ItemCounter ic : counterList) {

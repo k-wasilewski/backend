@@ -22,7 +22,7 @@ public class AddOrderController {
     ItemCounterRepository itemCounterRepository;
 
     @PostMapping("/addOrder")
-    @CrossOrigin(origins = "https://localhost:3000")
+    @CrossOrigin(origins = "*")
     public String addOrder(@RequestBody Order order) {
         String name = order.getName();
         int age = order.getAge();

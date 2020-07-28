@@ -13,7 +13,7 @@ public class GetOrdersController {
     OrderRepository orderRepository;
 
     @GetMapping("/auth/list")
-    @CrossOrigin(origins = "https://localhost:3000")
+    @CrossOrigin(origins = "*")
     public List<Order> getOrders(@RequestParam String username) {
         return orderRepository.findAllByUsername(username);
     }
